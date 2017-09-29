@@ -1,0 +1,7 @@
+#/bin/sh
+Xephyr -br -ac -noreset -screen 1024x768 :1 &
+sleep 1
+DISPLAY=:1 i3 &
+sleep 1
+# I tried using i3-sensible-terminal but urxvt wouldn't do what I want
+DISPLAY=:1 xterm -e "cat tutor.en | less"
