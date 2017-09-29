@@ -1,1 +1,91 @@
-Welcome to i3tutor!
+===============================================================================
+=    W e l c o m e   t o   t h e   i 3 w m    T u t o r    -    Version 1.0   =
+===============================================================================
+
+i3 is a tiling window manager, completely written from scratch. The target 
+platforms are GNU/Linux and BSD operating systems, our code is Free and Open 
+Source Software (FOSS) under the BSD license. i3 is primarily targeted at 
+advanced users and developers.
+
+Inspired by vimtutor, this tutor is written by Paul Sajna based on the i3 user 
+guide by Michael Stapelberg. If you find something missing from the tutor 
+please file a github issue at https://github.com/sajattack/i3tutor/issues.
+If you have difficulty with i3 unrelated to this tutor you can ask for help
+at https://www.reddit.com/r/i3wm, contact us on irc (preferred) or post your
+question(s) on the mailing list.
+
+It is important to remember that this tutor is set up to teach by use. That 
+means that you need to execute the commands to learn them properly.  If you 
+only read the text, you will forget the commands!
+
+This tutor will teach the default keybindings of i3, but it will also teach
+you how to modify these keybindings by editing the configuration file. i3 is 
+all about customization. It is very powerful.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                Lesson 1.1 Opening terminals and moving around
+                
+
+Throughout this tutor, the keyword $mod will be used to refer to the configured
+modifier. This is the Alt key (Mod1) by default, with the Windows key (Mod4) 
+being a popular alternative. i3-config-wizard should've asked you which 
+modifier to use when i3 first opened and generated your config file.
+
+This tutor opened the terminal you are reading this in. To open another one
+yourself, press $mod+Enter. i3 will place it next to the current one, splitting
+the screen size in half. Depending on your monitor, i3 will put the created 
+window beside the existing window (on wide displays) or below the existing
+window (rotated displays).
+
+To move focus between the two terminals you can use the direction keys which
+you may know from the editor vi. However, in i3, your homerow is used for these
+keys (in vi, the keys are shifted to the left by one for compatibility with
+most keyboard layouts). Therefore, $mod+j is left, $mod+k is down, $mod+l is up
+and mod+; is right. So to switch back to the tutor, use $mod+j. Of course you
+can also use the arrow keys.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                      Lesson 1.2 - Splits and containers
+                      
+
+At the moment, your workspace is split (it contains two terminals) in a 
+specific direction (horizontal by default). Every window can be split 
+horizontally or vertically again, just like the workspace. The terminology is
+"window" for a container that actually contains an X11 window (like a terminal
+or browser) and "split container" for containers that consist of one or more
+windows. 
+
+To split a window vertically, press $mod+v before you create the new window.
+To split it horizontally, press $mod+h. Let's split our two terminals into
+four. From the tutor, press $mod+v, then $mod+enter, then move to the right
+with $mod+; and do the same. Excellent. Don't forget to switch back to the
+tutor with $mod+j
+
+A split container can have one of three layouts, split, stacking, or tabbed.
+Split windows are sized so that every window gets an equal amount of space in
+the container. In the next lesson we'll go over stacking and tabbed layouts.
+For now just remember that $mod+v splits vertically and $mod+h splits 
+horizontally.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    Lesson 1.3 Stacking and tabbed layouts
+                
+
+With a stacking layout, only the focused window is displayed. You get a list of
+windows at the top of the container.
+
+In a tabbed layout, the window list is only a single line which is vertically
+split, just like in your favourite web browser.
+
+Let's try it out. From the tutor, press $mod+s to switch from a split layout
+to a stacking layout. You should see the terminal to the right disappear.
+But don't worry, it's not really gone. You can still see the title of the 
+window below the title of the tutor window. To bring it back up, press $mod+k,
+then return to the tutor with $mod+l.
+
+Now let's turn the bottom two terminals into a tabbed layout. From the tutor,
+press $mod+k twice to select the leftmost terminal and then $mod+w for tabbed
+mode.
+
+$mod+e is used to switch back to split layout. See if you can bring back our
+4 terminal split layout on your own.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
