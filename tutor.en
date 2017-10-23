@@ -43,7 +43,7 @@ most keyboard layouts). Therefore, $mod+j is left, $mod+k is down, $mod+l is up
 and mod+; is right. So to switch back to the tutor, use $mod+j. Of course you
 can also use the arrow keys.
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                       Lesson 1.2 - Splits and containers
                       
 
@@ -88,4 +88,33 @@ mode.
 $mod+e is used to switch back to split layout. See if you can bring back our
 4 terminal split layout on your own.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                       Lesson 1.4 Miscellaneous keybinds
+                        
+
+To make a window fullscreen or to leave fullscreen, press $mod+f. Go ahead and
+try this now.
+
+To open applications outside of a terminal, you can use the dmenu application
+launcher by pressing $mod+d. Just begin typing the name of the application 
+and press enter once the application you want to open is first in the list. 
+The application has to be in your $PATH for this to work.
+
+If an application does not have it's own mechanism for closing (such as a
+menu, the escape key, or a shortcut like Control+w), you can press 
+$mod+Shift+q to kill a window. For applications supporting the WM_DELETE 
+protocol, this will correctly close the application (saving modifications or
+doing other cleanup). If the application does not support the WM_DELETE 
+protocol, your X server will kill the window and behaviour will depend on the
+application.
+
+To restart i3 in place (and thus get into a clean state if there is a bug, or
+to upgrade to a newer version of i3) you can use $mod+Shift+r.
+
+To cleanly exit i3 without killing your X server, you can use $mod+Shift+e.
+By default, a dialog will ask you to confirm if you really want to quit.
+Note: exiting i3 this way causes strange behaviour in this tutor's virtualized
+X server environment (Xephyr). You may exit the tutor with the x button in the
+top right corner.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                          Lesson 1.5 Using workspaces
 
