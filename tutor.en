@@ -116,5 +116,101 @@ Note: exiting i3 this way causes strange behaviour in this tutor's virtualized
 X server environment (Xephyr). You may exit the tutor with the x button in the
 top right corner.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//this is all copied straight from the user guide
                           Lesson 1.5 Using workspaces
+                          
+
+Workspaces are an easy way to group a set of windows. By default, you are on 
+the first workspace, as the bar on the bottom left indicates. To switch to 
+another workspace, press $mod+num where num is the number of the workspace 
+you want to use. If the workspace does not exist yet, it will be created.
+
+A common paradigm is to put the web browser on one workspace, communication
+applications (mutt, irssi, …) on another one, and the ones with which you work,
+on the third one. Of course, there is no need to follow this approach.
+
+If you have multiple screens, a workspace will be created on each screen at 
+startup. If you open a new workspace, it will be bound to the screen you 
+created it on. When you switch to a workspace on another screen, i3 will set 
+focus to that screen.
+
+To move a window to another workspace, simply press $mod+Shift+num where num
+is (like when switching workspaces) the number of the target workspace. 
+Similarly to switching workspaces, the target workspace will be created if it 
+does not yet exist.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                Lesson 2 Tree
+
+
+(This section is a lot of theoretical crap, not sure if it's worth including
+in a practical tutorial)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                            Lesson 3 Configuring i3
+
+
+This is where the real fun begins ;-). Most things are very dependent on your 
+ideal working environment so we can’t make reasonable defaults for them.
+
+While not using a programming language for the configuration, i3 stays quite 
+flexible in regards to the things you usually want your window manager to do.
+
+For example, you can configure bindings to jump to specific windows, you can set
+specific applications to start on specific workspaces, you can automatically 
+start applications, you can change the colors of i3, and you can bind your keys 
+to do useful things.
+
+To change the configuration of i3, copy /etc/i3/config to ~/.i3/config (or
+~/.config/i3/config if you like the XDG directory scheme) and edit it with a 
+text editor.
+
+On first start (and on all following starts, unless you have a configuration 
+file), i3 will offer you to create a configuration file. You can tell the 
+wizard to use either Alt (Mod1) or Windows (Mod4) as modifier in the config 
+file. Also, the created config file will use the key symbols of your current 
+keyboard layout. To start the wizard, use the command i3-config-wizard. Please 
+note that you must not have ~/.i3/config, otherwise the wizard will exit.
+
+Since i3 4.0, a new configuration format is used. i3 will try to automatically 
+detect the format version of a config file based on a few different keywords, 
+but if you want to make sure that your config is read with the new format, 
+include the following line in your config file:
+# i3 config file (v4)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Lesson 3.1 Comments and fonts
+                        
+
+It is possible and recommended to use comments in your configuration file to 
+properly document your setup for later reference. Comments are started with a # 
+and can only be used at the beginning of a line:
+
+Examples:
+# This is a comment
+
+i3 has support for both X core fonts and FreeType fonts (through Pango) to 
+render window titles.
+
+To generate an X core font description, you can use xfontsel(1). To see special
+characters (Unicode), you need to use a font which supports the ISO-10646 
+encoding.
+
+A FreeType font description is composed by a font family, a style, a weight, a
+variant, a stretch and a size. FreeType fonts support right-to-left rendering
+and contain often more Unicode glyphs than X core fonts.
+
+If i3 cannot open the configured font, it will output an error in the logfile 
+and fall back to a working font.
+
+Syntax:
+font <X core font description>
+font pango:<family list> [<style options>] <size>
+                                                 
+Examples:                                     
+font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+font pango:DejaVu Sans Mono 10
+font pango:DejaVu Sans Mono, Terminus Bold Semi-Condensed 11
+font pango:Terminus 11px
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                            3.2 Keyboard bindings
+
+
 
