@@ -112,11 +112,8 @@ to upgrade to a newer version of i3) you can use $mod+Shift+r.
 
 To cleanly exit i3 without killing your X server, you can use $mod+Shift+e.
 By default, a dialog will ask you to confirm if you really want to quit.
-Note: exiting i3 this way causes strange behaviour in this tutor's virtualized
-X server environment (Xephyr). You may exit the tutor with the x button in the
-top right corner.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//this is all copied straight from the user guide
+//most of the following is all copied straight from the user guide
                           Lesson 1.5 Using workspaces
                           
 
@@ -162,6 +159,12 @@ to do useful things.
 To change the configuration of i3, copy /etc/i3/config to ~/.i3/config (or
 ~/.config/i3/config if you like the XDG directory scheme) and edit it with a 
 text editor.
+
+This tutor has it's own config file, located at $install_dir/i3tutor.config,
+so you can experiment with the tutor without breaking an existing i3 install.
+When you are satisfied with your config, you can apply it to an installed i3
+by copying the config file to ~/.i3/config or ~/.config/i3/config depending on
+your system.
 
 On first start (and on all following starts, unless you have a configuration 
 file), i3 will offer you to create a configuration file. You can tell the 
@@ -213,4 +216,154 @@ font pango:Terminus 11px
                             3.2 Keyboard bindings
 
 
+A keyboard binding makes i3 execute a command (see below) upon pressing a 
+specific key. i3 allows you to bind either on keycodes or on keysyms (you can
+also mix your bindings, though i3 will not protect you from overlapping ones).
 
+A keysym (key symbol) is a description for a specific symbol, like "a" or "b",
+but also more strange ones like "underscore" instead of "_". These are the ones 
+you use in Xmodmap to remap your keys. To get the current mapping of your keys, 
+use xmodmap -pke. To interactively enter a key and see what keysym it is 
+configured to, use xev.
+
+Keycodes do not need to have a symbol assigned (handy for custom vendor hotkeys 
+on some notebooks) and they will not change their meaning as you switch to a 
+different keyboard layout (when using xmodmap).
+
+My recommendation is: If you often switch keyboard layouts but you want to keep 
+your bindings in the same physical location on the keyboard, use keycodes. If 
+you don’t switch layouts, and want a clean and simple config file, use keysyms.
+
+Some tools (such as import or xdotool) might be unable to run upon a KeyPress 
+event, because the keyboard/pointer is still grabbed. For these situations, the
+--release flag can be used, which will execute the command after the keys have 
+been released.
+
+Syntax:
+
+bindsym [--release] [<Group>+][<Modifiers>+]<keysym> command
+bindcode [--release] [<Group>+][<Modifiers>+]<keycode> command
+
+Examples:
+
+# Fullscreen
+bindsym $mod+f fullscreen toggle
+
+# Restart
+bindsym $mod+Shift+r restart
+
+# Remap movement keys to vi-style
+set $up k
+set $down j
+set $left h
+set $right l
+
+bindsym Mod1+$left focus left
+bindsym Mod1+$down focus down
+bindsym Mod1+$up focus up
+bindsym Mod1+$right focus right
+
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5% 
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5% 
+bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
+
+# Screen Brightness
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5 
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+
+Available Modifiers:
+
+Mod1-Mod5, Shift, Control
+    Standard modifiers, see xmodmap(1)
+
+Group1, Group2, Group3, Group4
+    When using multiple keyboard layouts (e.g. with setxkbmap -layout us,ru), 
+you can specify in which XKB group (also called “layout”) a keybinding should be 
+active. By default, keybindings are translated in Group1 and are active in all 
+groups. If you want to override keybindings in one of your layouts, specify the 
+corresponding group. For backwards compatibility, the group “Mode_switch” is an 
+alias for Group2.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                              3.3 Mouse Bindings
+
+
+A mouse binding makes i3 execute a command upon pressing a specific mouse button
+in the scope of the clicked container (see [command_criteria]). You can 
+configure mouse bindings in a similar way to key bindings.
+
+Syntax:
+
+bindsym [--release] [--border] [--whole-window] [--exclude-titlebar] [<Modifiers>+]button<n> command
+
+By default, the binding will only run when you click on the titlebar of the 
+window. If the --release flag is given, it will run when the mouse button is 
+released.
+
+If the --whole-window flag is given, the binding will also run when any part of 
+the window is clicked, with the exception of the border. To have a bind run when
+the border is clicked, specify the --border flag.
+
+If the --exclude-titlebar flag is given, the titlebar will not be considered for
+the keybinding.
+
+Examples:
+
+# The middle button over a titlebar kills the window
+bindsym --release button2 kill
+
+# The middle button and a modifer over any part of the window kills the window
+bindsym --whole-window $mod+button2 kill
+
+# The side buttons move the window around
+bindsym button9 move left
+bindsym button8 move right
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                               3.4 Binding Modes
+                               
+You can have multiple sets of bindings by using different binding modes. When 
+you switch to another binding mode, all bindings from the current mode are 
+released and only the bindings defined in the new mode are valid for as long as 
+you stay in that binding mode. The only predefined binding mode is default, 
+which is the mode i3 starts out with and to which all bindings not defined in a 
+specific binding mode belong.
+
+Working with binding modes consists of two parts: defining a binding mode and 
+switching to it. For these purposes, there are one config directive and one 
+command, both of which are called mode. The directive is used to define the 
+bindings belonging to a certain binding mode, while the command will switch to 
+the specified mode.
+
+It is recommended to use binding modes in combination with [variables] in order 
+to make maintenance easier. Below is an example of how to use a binding mode.
+
+Note that it is advisable to define bindings for switching back to the default 
+mode.
+
+Note that it is possible to use [pango_markup] for binding modes, but you need 
+to enable it explicitly by passing the --pango_markup flag to the mode 
+definition.
+
+Syntax:
+
+# config directive
+mode [--pango_markup] <name>
+
+# command
+mode <name>
+
+Example:
+
+# Press $mod+o followed by either f, t, Escape or Return to launch firefox,
+# thunderbird or return to the default mode, respectively.
+set $mode_launcher Launch: [f]irefox [t]hunderbird
+bindsym $mod+o mode "$mode_launcher"
+
+mode "$mode_launcher" {
+    bindsym f exec firefox
+    bindsym t exec thunderbird
+
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
