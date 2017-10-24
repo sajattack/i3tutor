@@ -1,7 +1,7 @@
 # Maintainer Paul Sajna <sajattack@gmail.com>
 
 pkgname='i3tutor-git'
-pkgver=1.0.r0.g28b5998
+pkgver=1.0.r1.g00519fd
 pkgrel=1
 pkgdesc='Vimtutor for i3wm'
 arch=('any')
@@ -24,5 +24,5 @@ package() {
   mkdir -p "$pkgdir/usr/share/i3tutor"
   cp -a --no-preserve=ownership * "$pkgdir/usr/share/i3tutor"
   chmod +x "$pkgdir/usr/share/i3tutor/i3tutor.sh"
-  ln -s "$pkgdir/usr/share/i3tutor/i3tutor.sh" "$pkgdir/usr/bin/"
+  ln -s "$pkgdir/usr/share/i3tutor/i3tutor.sh" "$pkgdir/usr/bin/i3tutor"
 }
